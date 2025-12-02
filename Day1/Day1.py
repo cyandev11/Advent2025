@@ -56,7 +56,7 @@ def move_lock(current_dial, move):
     return current_dial
 
 
-
+# Opens a file and splits lines into inputs
 def open_file(filename):
     # opens file and returns all strings
     with open(filename, "r") as file_input:
