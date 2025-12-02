@@ -1,5 +1,6 @@
 import re
 
+# split the ranges, then for each range, check if there are invalid ids
 def part1(moves):
     total_invalid_ids = 0
     for move in moves:
@@ -8,16 +9,19 @@ def part1(moves):
         higher_range = ranges[1]
         total_invalid_ids += check_invalid(int(lower_range), int(higher_range))
     return total_invalid_ids
-        
+
+# going through every number in the range, check if the number is invalid
 def check_invalid(lower, higher):
     total_invalid = 0
     while lower <= higher:
+        # if both halves are equal to each other, it is invalid and can be added to total
         is_invalid = check_halfs(lower)
         if is_invalid:
             total_invalid += lower
         lower += 1
     return total_invalid
 
+# logic for checking halfs with flooring to ensure only checking even length numbers
 def check_halfs(id):
     half_len = len(str(id)) // 2
     return str(id)[:half_len] == str(id)[half_len:]
