@@ -10,6 +10,15 @@ def part1(moves):
         total_invalid_ids += check_invalid(int(lower_range), int(higher_range))
     return total_invalid_ids
 
+def part2(moves):
+    total_invalid_ids = 0
+    for move in moves:
+        ranges = move.split("-")
+        lower_range = ranges[0]
+        higher_range = ranges[1]
+        total_invalid_ids += check_invalid(int(lower_range), int(higher_range))
+    return total_invalid_ids
+
 # going through every number in the range, check if the number is invalid
 def check_invalid(lower, higher):
     total_invalid = 0
@@ -24,6 +33,21 @@ def check_invalid(lower, higher):
 # logic for checking halfs with flooring to ensure only checking even length numbers
 def check_halfs(id):
     half_len = len(str(id)) // 2
+    return str(id)[:half_len] == str(id)[half_len:]
+
+# logic for checking repeition in general
+def check_repitions(id):
+    factors = []
+    length = len(str(id))
+    for i in range(length):
+        if length % (i + 1) == 0:
+            factors.append(i+1)
+    factors.remove(length)
+
+
+    for factor in factors:
+        print(factor)
+        
     return str(id)[:half_len] == str(id)[half_len:]
 
 
