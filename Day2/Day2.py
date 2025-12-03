@@ -1,5 +1,6 @@
 import textwrap
 
+
 # split the ranges, then for each range, check if there are invalid ids
 def part1(moves):
     total_invalid_ids = 0
@@ -10,6 +11,7 @@ def part1(moves):
         total_invalid_ids += check_invalid(int(lower_range), int(higher_range))
     return total_invalid_ids
 
+
 def part2(moves):
     total_invalid_ids = 0
     for move in moves:
@@ -18,6 +20,7 @@ def part2(moves):
         higher_range = ranges[1]
         total_invalid_ids += check_invalid2(int(lower_range), int(higher_range))
     return total_invalid_ids
+
 
 # going through every number in the range, check if the number is invalid
 def check_invalid(lower, higher):
@@ -30,6 +33,7 @@ def check_invalid(lower, higher):
         lower += 1
     return total_invalid
 
+
 def check_invalid2(lower, higher):
     total_invalid = 0
     while lower <= higher:
@@ -40,10 +44,12 @@ def check_invalid2(lower, higher):
         lower += 1
     return total_invalid
 
+
 # logic for checking halfs with flooring to ensure only checking even length numbers
 def check_halfs(id):
     half_len = len(str(id)) // 2
     return str(id)[:half_len] == str(id)[half_len:]
+
 
 # logic for checking repeition in general
 def check_repitions(id):
@@ -67,9 +73,7 @@ def check_repitions(id):
 
         # if there's only one element, there is a pattern
         if len(split_id) == 1:
-            print(split_id)
             return True
-        
 
     return False
 
@@ -84,6 +88,5 @@ def open_file(filename):
 
 
 inputs = open_file("Day2/Day2Input.txt")
-print(inputs)
 print(part1(inputs))
 print(part2(inputs))
