@@ -43,40 +43,28 @@ def part2(moves):
     return total_joltage
 
 
-# find the first starting digit, depending on how long we want our batteies to be
-# then cut out the lowest batteries from the batteries after the first digit until desired length
-# finally add the first digit and the maximum batteries in the desired length - 1 togeter
-# to get the final joltage
-# i can adapt part 1 easily with desired_length 2
 def find_highest_joltage(bank, desired_length):
-    # if the bank is shorter than the desired length, then just return bank
-    # unnessary part
-    if len(bank) < desired_length:
-        joltage = "".join(str(battery) for battery in bank)
-        joltage = int(joltage)
-        return joltage
+    # highest digits
+    highest_digits = []
+    original_desired_length = desired_length
 
-    # find the starting digit, this is most important
-    area_for_first_digit = bank[: (len(bank) - desired_length)]
-    first_digit = max(area_for_first_digit)
-    index_first_digit = 0
-    # its important to find the value of the last index
-    for i, digit in enumerate(area_for_first_digit):
-        if first_digit == digit:
-            index_first_digit = i
-    print(first_digit, index_first_digit)
-    # find the rest of the higest batteries
-    # then add back in the first digit
-    area_for_batteries = bank[(index_first_digit + 1) :]
-
-    while len(area_for_batteries) > (desired_length - 1):
-        area_for_batteries.remove(min(area_for_batteries))
-    area_for_batteries.insert(0, first_digit)
+    # while the length of the bank is greater than necessary number of switches
+    while len(bank) > (desired_length) and desired_length > 0:
+        # cut amount of digits left by 1
+        desired_length -= 1
+        # find that digit to find in the area before the renaububg
+        area_for_digit = bank[: (len(bank) - desired_length)]
+        digit = max(area_for_digit)
+        index_digit = bank.index(digit)
+        highest_digits.append(digit)
+        bank = bank[(index_digit + 1) :]
     
-    print(area_for_batteries)
+    # if the switches are not complete 
+    if len(highest_digits) != original_desired_length:
+        highest_digits = highest_digits + bank
 
     # join for final voltage
-    joltage = "".join(str(battery) for battery in area_for_batteries)
+    joltage = "".join(str(battery) for battery in highest_digits)
     joltage = int(joltage)
     print(joltage)
     return joltage
