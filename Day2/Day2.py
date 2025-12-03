@@ -57,7 +57,6 @@ def check_repitions(id):
 
     # remove multiple of 1s
     factors.remove(length)
-    factors.remove(1)
 
     # split id's into even parts
     for factor in factors:
@@ -68,7 +67,9 @@ def check_repitions(id):
 
         # if there's only one element, there is a pattern
         if len(split_id) == 1:
+            print(split_id)
             return True
+        
 
     return False
 
@@ -82,7 +83,7 @@ def open_file(filename):
         return list_of_values
 
 
-inputs = open_file("Day2Input.txt")
+inputs = open_file("Day2/Day2Input.txt")
 print(inputs)
 print(part1(inputs))
 print(part2(inputs))
