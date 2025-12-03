@@ -43,6 +43,10 @@ def part2(moves):
     return total_joltage
 
 
+# seperate the last parts for the guarenteed end part
+# keep finding the maximum digit of the left side
+# when the amount of batteries to switch are eqaul to the number of batteries at the end
+# add the batteries at the end to the on switches
 def find_highest_joltage(bank, desired_length):
     # highest digits
     highest_digits = []
@@ -58,15 +62,15 @@ def find_highest_joltage(bank, desired_length):
         index_digit = bank.index(digit)
         highest_digits.append(digit)
         bank = bank[(index_digit + 1) :]
-    
-    # if the switches are not complete 
+
+    # if the switches are not the size desired
+    # add the rest of the bank in becuase the bank will complete the size
     if len(highest_digits) != original_desired_length:
         highest_digits = highest_digits + bank
 
     # join for final voltage
     joltage = "".join(str(battery) for battery in highest_digits)
     joltage = int(joltage)
-    print(joltage)
     return joltage
 
 
