@@ -1,5 +1,5 @@
 import textwrap
-
+import time
 
 # this function returns a new list with x values to replace valid @ toilet papers
 def part1(moves):
@@ -84,6 +84,35 @@ def open_file(filename):
         return list_of_values
 
 
+def print_maze(maze):
+    for i in range(10):
+        print()
+    for row in maze:
+        joined_row = "".join(row)
+        print(joined_row)
+    time.sleep(1)
+    
+def visualization(maze):
+    total_rolls = 0
+    # set initial new maze through part 1
+    print(maze)
+    new_maze = part1(maze)
+    print_maze(new_maze)
+
+    # while the old maze is not equal to the new maze (old maze that goes through part 1)
+    while maze != new_maze:
+        # set the old maze to the new maze
+        total_rolls += count_x(new_maze)
+        new_maze = turn_x_period(new_maze)
+        maze = new_maze
+        print_maze(maze)
+        # keep setting new maze to a new round of part 1 until it doesnt change
+        # so old maze = new maze
+        new_maze = part1(maze)
+        print_maze(new_maze)
+
+    return total_rolls
+
 inputs = open_file("Day4/Day4Input.txt")
 # split rows into individual elemnts
 for i, row in enumerate(inputs):
@@ -94,5 +123,10 @@ for i, row in enumerate(inputs):
 part_1_maze = part1(inputs)
 print(count_x(part_1_maze))
 
+
 # find x's of part 2
 print(part2(inputs))
+
+# visualization
+print_maze(inputs)
+visualization(inputs)
