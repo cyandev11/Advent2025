@@ -6,14 +6,12 @@ def part1(moves):
     # create frame of # around maze
     width_maze = len(moves[0])
     new_maze = []
-    new_maze.append("#"*(width_maze + 2))
+    new_maze.append(["#"]*(width_maze + 2))
     for move in moves:
-        new_maze.append("#" + move + "#")
-    new_maze.append("#"*(width_maze + 2))
+        new_maze.append(["#"] + move + ["#"])
+    new_maze.append(["#"]*(width_maze + 2))
 
-    # split rows into individual elemnts
-    for i, row in enumerate(new_maze):
-        new_maze[i] = [char for char in row]
+
 
     # for every @ check around it
     indexs_to_change = []
@@ -44,8 +42,35 @@ def part1(moves):
 
     return new_maze
 
+# def part2(maze):
+#     total_rolls = 0
+#     new_maze = part1(maze)
+#     count = 5
+#     while maze != new_maze and count > 0:
 
+#         new_maze = part1(maze)
+#         total_rolls += count_x(new_maze)
+#         new_maze = turn_x_period(new_maze)
+#         maze = new_maze
+#         new_maze = part1(maze)
+#         print(maze)
+#         count -= 1
 
+#     return maze
+    
+
+def turn_x_period(maze):
+    for r, row in enumerate(maze):
+        for c, col in enumerate(maze):
+            if maze[r][c] == "x":
+                maze[r][c] = "."
+    return maze
+
+def count_x(maze):
+    rolls_of_accessed_paper = 0
+    for row in maze:
+        rolls_of_accessed_paper += row.count("x")
+    return rolls_of_accessed_paper
 
 
 # Opens a file and splits lines into inputs
@@ -57,12 +82,14 @@ def open_file(filename):
         return list_of_values
 
 inputs = open_file("Day4/Day4Input.txt")
+# split rows into individual elemnts
+for i, row in enumerate(inputs):
+    inputs[i] = [char for char in row]
+
 
 # find x's of part 1
-rolls_of_accessed_paper = 0
 part_1_maze = part1(inputs)
-for row in part_1_maze:
-    rolls_of_accessed_paper += row.count("x")
-print(rolls_of_accessed_paper)
+print(count_x(part_1_maze))
 
 # find x's of part 2
+# print(part2(inputs))
