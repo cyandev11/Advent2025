@@ -1,7 +1,7 @@
 import textwrap
 
 
-# split the ranges, then for each range, check if there are invalid ids
+# this function returns a new list with x values to replace valid @ toilet papers
 def part1(moves):
     # create frame of # around maze
     width_maze = len(moves[0])
@@ -16,7 +16,6 @@ def part1(moves):
         new_maze[i] = [char for char in row]
 
     # for every @ check around it
-    rolls_of_accessed_paper = 0
     indexs_to_change = []
     for r, row in enumerate(new_maze):
         for c, col in enumerate(new_maze[0]):
@@ -37,11 +36,13 @@ def part1(moves):
     for indexs in indexs_to_change:
         new_maze[indexs[0]][indexs[1]] = "x"
 
-    # find x's
-    for row in new_maze:
-        rolls_of_accessed_paper += row.count("x")
-        
-    return rolls_of_accessed_paper
+    # remove frame
+    new_maze = new_maze[1:-1]
+    for r, row in enumerate(new_maze):
+        new_maze[r].pop(0)
+        new_maze[r].pop()
+
+    return new_maze
 
 
 
@@ -56,5 +57,12 @@ def open_file(filename):
         return list_of_values
 
 inputs = open_file("Day4/Day4Input.txt")
-print(part1(inputs))
 
+# find x's of part 1
+rolls_of_accessed_paper = 0
+part_1_maze = part1(inputs)
+for row in part_1_maze:
+    rolls_of_accessed_paper += row.count("x")
+print(rolls_of_accessed_paper)
+
+# find x's of part 2
