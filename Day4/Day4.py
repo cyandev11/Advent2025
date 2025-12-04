@@ -95,7 +95,6 @@ def print_maze(maze):
 def visualization(maze):
     total_rolls = 0
     # set initial new maze through part 1
-    print(maze)
     new_maze = part1(maze)
     print_maze(new_maze)
 
