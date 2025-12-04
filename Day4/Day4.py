@@ -48,15 +48,19 @@ def part1(moves):
 
 def part2(maze):
     total_rolls = 0
+    # set initial new maze through part 1
     new_maze = part1(maze)
+    # while the old maze is not equal to the new maze (old maze that goes through part 1)
     while maze != new_maze:
+        # set the old maze to the new maze
         total_rolls += count_x(new_maze)
         new_maze = turn_x_period(new_maze)
         maze = new_maze
+        # keep setting new maze to a new round of part 1 until it doesnt change
+        # so old maze = new maze
         new_maze = part1(maze)
 
     return total_rolls
-
 
 def turn_x_period(maze):
     for r, row in enumerate(maze):
@@ -65,13 +69,11 @@ def turn_x_period(maze):
                 maze[r][c] = "."
     return maze
 
-
 def count_x(maze):
     rolls_of_accessed_paper = 0
     for row in maze:
         rolls_of_accessed_paper += row.count("x")
     return rolls_of_accessed_paper
-
 
 # Opens a file and splits lines into inputs
 def open_file(filename):
