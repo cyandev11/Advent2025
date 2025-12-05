@@ -32,33 +32,29 @@ def part2(moves):
     while index < len(sorted_id_ranges) - 1:
         current_range = sorted_id_ranges[index]
         next_range = sorted_id_ranges[index + 1]
-        
         can_merge = check_merge(current_range, next_range)
         if can_merge:
             new_merge = merge(current_range, next_range)
             sorted_id_ranges.insert(index, new_merge)
             sorted_id_ranges.remove(current_range)
             sorted_id_ranges.remove(next_range)
-            sorted_id_ranges = natsorted(sorted_id_ranges)
             index = -1
         index += 1
-    print(sorted_id_ranges)
 
     for id_range in sorted_id_ranges:
         total += check_diff(id_range)
+    
     return total
     
 def check_merge(range1, range2):
-    # 2nd and 3rd num
-    lower1 = int(range1.split("-")[0])
+    # 2nd and 3rd num (they are already in order, lower of range 1 is smaller than lower of range2)
     higher1 = int(range1.split("-")[1])
     lower2 = int(range2.split("-")[0])
-    higher2 = int(range2.split("-")[1])
     if higher1 >= lower2:
         return True
 
 def merge(range1, range2):
-    # 1st and 4th num
+    # find new range
     lower1 = int(range1.split("-")[0])
     higher1 = int(range1.split("-")[1])
     lower2 = int(range2.split("-")[0])
