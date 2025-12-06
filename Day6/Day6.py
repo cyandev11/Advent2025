@@ -30,21 +30,28 @@ def part2(moves):
             indexs.append(i)
     indexs.append(len(moves[0]))
 
+    # for every range of numbers find the equation for that
     for i, index in enumerate(indexs[:-1]):
         lower_index = indexs[i]
         higher_index = indexs[i + 1]
 
+        # find equation
         equation = ""
+        # numbers for the eqaution are based on index, numbers to the left, the specific digits move veritcally
         while higher_index > lower_index:
             higher_index -= 1
             for number in numbers:
                 equation += number[higher_index]
             equation += " "
 
+        # now that we have the new numbers, clean by spliting and removing white space
         current_eqaution = equation.split(" ")
         while "" in current_eqaution:
             current_eqaution.remove("")
+        # find if + or *
         current_operation = operations[lower_index]
+
+        # using numbers and operation, solve for solution
         solution = solve_equation(current_eqaution, current_operation)
         total += solution
     return total
