@@ -34,29 +34,38 @@ def part2(map):
             elif isinstance(current_symbol, int) and map[r + 1][c] == ".":
                 map[r + 1][c] = 1
 
+    # after the beams are done
     for r, row in enumerate(map):
         for c, col in enumerate(row):
-            if map[r][c] == 1 and r != 0 and row != len(map) and c != 0 and c != len(row) - 1:
+            # dont check the edges of the colums
+            # if the edge has a number, its automatically set to zero
+            # also dont check the star
+            if map[r][c] == 1 and r != 0 and c != 0 and c != len(row) - 1:
                 new_num = 1
                 left = map[r][c - 1]
                 right = map[r][c + 1]
                 above = map[(r - 1)][c]
-                print(left, right, above)
+
+                # if the number can change, set new num to 0 to properly find the new number based on old numbers
                 if left == "^" or right == "^" or isinstance(above, int):
                     new_num = 0
 
+                # if left is ^ with a number on top
                 if left == "^" and isinstance(map[r - 1][c - 1], int):
                     new_num += map[r - 1][c - 1]
+                # if right is ^ with a number on top
                 if right == "^" and isinstance(map[r - 1][c + 1], int):
                     new_num += map[r - 1][c + 1]
+                # if there is a number on top
                 if isinstance(above, int):
                     new_num += map[r - 1][c]
                 map[r][c] = new_num
+
+    # add all the possible routes, now on the last row
     for col in map[-1]:
         if isinstance(col, int):
             total_realities += col
-    # print_2d_array(map)  # for animation
-
+    # print_2d_array(map)
     return total_realities
 
 
