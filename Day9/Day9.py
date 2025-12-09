@@ -1,8 +1,4 @@
-import math
-from collections import Counter
-
-
-def solve_shortest_two_points(inputs):
+def solve_largest_area(inputs):
     largest_area = 0
     for i, input in enumerate(inputs):
         for i2, input2 in enumerate(inputs):
@@ -15,7 +11,6 @@ def solve_shortest_two_points(inputs):
             # makes sure it doesnt compare to itself
             area = 0
             if i is not i2:
-                print(cords, cords2)
                 area = (max(col1, col2) - min(col1, col2) + 1) * (
                     max(row1, row2) - min(row1, row2) + 1
                 )
@@ -34,5 +29,7 @@ def open_file(filename):
         return input
 
 
+
 inputs = open_file("Day9/Day9Input.txt")
-print(solve_shortest_two_points(inputs))
+# part 1 
+print(solve_largest_area(inputs))
